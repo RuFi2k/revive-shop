@@ -47,6 +47,13 @@ wp option update woocommerce_price_decimal_sep ","
 wp option update woocommerce_price_num_decimals 0
 wp option update woocommerce_calc_taxes "no"
 wp option update woocommerce_coming_soon "no"
+# Guest checkout; optional account creation at checkout; no separate sign-up page
+wp option update woocommerce_enable_guest_checkout "yes"
+wp option update woocommerce_enable_checkout_login_reminder "no"
+wp option update woocommerce_enable_signup_and_login_from_checkout "yes"
+wp option update woocommerce_enable_myaccount_registration "no"
+wp option update woocommerce_registration_generate_username "yes"
+wp option update woocommerce_registration_generate_password "yes"
 wp option update woocommerce_onboarding_profile '{"skipped":true}' --format=json
 wp wc tool run install_pages --user="$ADMIN_USER" >/dev/null
 
