@@ -83,6 +83,10 @@ while IFS='|' read -r slug name price cat brand featured desc; do
     wp term create product_brand "$brand" --porcelain >/dev/null 2>&1 || true
     wp post term add "$id" product_brand "$brand" --by=name >/dev/null 2>&1 || true
   fi
+  img="wp-content/themes/revive-shop/assets/img/products/$slug.jpg"
+  if [ -f "$img" ]; then
+    wp media import "$img" --post_id="$id" --title="$name" --alt="$name" --featured_image --porcelain >/dev/null
+  fi
   echo "   #$id $name"
 done <<'EOF'
 vitamin-c-serum|Сироватка з вітаміном C 15%, 30 мл|1450|syrovatky|Lumen Derm|true|Антиоксидантна сироватка для рівного тону та сяйва шкіри.
