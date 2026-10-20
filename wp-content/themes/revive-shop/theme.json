@@ -1,0 +1,153 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.8/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "760px",
+			"wideSize": "1280px"
+		},
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": true,
+			"palette": [
+				{ "slug": "ink", "name": "Ink (фон)", "color": "#181A1B" },
+				{ "slug": "surface", "name": "Surface", "color": "#212425" },
+				{ "slug": "surface-2", "name": "Surface 2", "color": "#2A2D2E" },
+				{ "slug": "light", "name": "Light (текст)", "color": "#EAE9E6" },
+				{ "slug": "muted", "name": "Muted", "color": "#A3A4A3" },
+				{ "slug": "accent", "name": "Revive green", "color": "#577B50" },
+				{ "slug": "accent-dark", "name": "Revive green dark", "color": "#46663F" },
+				{ "slug": "sage", "name": "Sage", "color": "#9CBB94" },
+				{ "slug": "white", "name": "White", "color": "#FFFFFF" }
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"slug": "body",
+					"name": "Montserrat",
+					"fontFamily": "Montserrat, -apple-system, \"Segoe UI\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Montserrat", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/montserrat-cyrillic-ext-wght-normal.woff2"], "unicodeRange": "U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F" },
+						{ "fontFamily": "Montserrat", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/montserrat-cyrillic-wght-normal.woff2"], "unicodeRange": "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116" },
+						{ "fontFamily": "Montserrat", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/montserrat-latin-ext-wght-normal.woff2"], "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF" },
+						{ "fontFamily": "Montserrat", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/montserrat-latin-wght-normal.woff2"], "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD" }
+					]
+				},
+				{
+					"slug": "display",
+					"name": "Commissioner (замінник DIN Pro)",
+					"fontFamily": "\"DIN Pro\", Commissioner, \"Segoe UI\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Commissioner", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/commissioner-cyrillic-ext-wght-normal.woff2"], "unicodeRange": "U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F" },
+						{ "fontFamily": "Commissioner", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/commissioner-cyrillic-wght-normal.woff2"], "unicodeRange": "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116" },
+						{ "fontFamily": "Commissioner", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/commissioner-latin-ext-wght-normal.woff2"], "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF" },
+						{ "fontFamily": "Commissioner", "fontStyle": "normal", "fontWeight": "100 900", "fontDisplay": "swap", "src": ["file:./assets/fonts/commissioner-latin-wght-normal.woff2"], "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD" }
+					]
+				}
+			],
+			"fontSizes": [
+				{ "slug": "x-small", "name": "XS", "size": "0.75rem", "fluid": false },
+				{ "slug": "small", "name": "S", "size": "0.875rem", "fluid": false },
+				{ "slug": "medium", "name": "M", "size": "1rem", "fluid": false },
+				{ "slug": "large", "name": "L", "size": "1.125rem", "fluid": { "min": "1.0625rem", "max": "1.25rem" } },
+				{ "slug": "x-large", "name": "XL", "size": "1.5rem", "fluid": { "min": "1.25rem", "max": "1.5rem" } },
+				{ "slug": "xx-large", "name": "2XL", "size": "2rem", "fluid": { "min": "1.625rem", "max": "2.25rem" } },
+				{ "slug": "huge", "name": "Hero", "size": "4rem", "fluid": { "min": "2.25rem", "max": "4rem" } }
+			]
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"units": ["px", "rem", "%", "vw"],
+			"spacingSizes": [
+				{ "slug": "20", "name": "2XS", "size": "0.5rem" },
+				{ "slug": "30", "name": "XS", "size": "0.75rem" },
+				{ "slug": "40", "name": "S", "size": "1rem" },
+				{ "slug": "50", "name": "M", "size": "clamp(1.25rem, 2.5vw, 1.75rem)" },
+				{ "slug": "60", "name": "L", "size": "clamp(1.5rem, 4vw, 3rem)" },
+				{ "slug": "70", "name": "XL", "size": "clamp(2.5rem, 6vw, 4.5rem)" },
+				{ "slug": "80", "name": "2XL", "size": "clamp(3rem, 8vw, 6rem)" }
+			]
+		},
+		"border": { "radius": true, "color": true, "style": true, "width": true },
+		"shadow": { "defaultPresets": false }
+	},
+	"styles": {
+		"color": { "background": "var(--wp--preset--color--ink)", "text": "var(--wp--preset--color--light)" },
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)",
+			"fontSize": "var(--wp--preset--font-size--medium)",
+			"lineHeight": "1.6",
+			"fontWeight": "400"
+		},
+		"spacing": {
+			"blockGap": "1.5rem",
+			"padding": { "left": "clamp(1rem, 4vw, 2rem)", "right": "clamp(1rem, 4vw, 2rem)" }
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "300",
+					"textTransform": "uppercase",
+					"letterSpacing": "0.05em",
+					"lineHeight": "1.1"
+				},
+				"color": { "text": "var(--wp--preset--color--light)" }
+			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--huge)", "lineHeight": "1.02", "letterSpacing": "0.03em" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--xx-large)", "letterSpacing": "0.07em" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--large)", "fontWeight": "400", "letterSpacing": "0.08em" } },
+			"link": {
+				"color": { "text": "var(--wp--preset--color--light)" },
+				":hover": { "color": { "text": "var(--wp--preset--color--sage)" } }
+			},
+			"button": {
+				"color": { "background": "var(--wp--preset--color--accent)", "text": "var(--wp--preset--color--white)" },
+				"border": { "radius": "44px", "width": "0" },
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--body)",
+					"fontSize": "0.8125rem",
+					"fontWeight": "500",
+					"letterSpacing": "0.12em",
+					"textTransform": "uppercase",
+					"lineHeight": "1.2"
+				},
+				"spacing": { "padding": { "top": "1.125rem", "bottom": "1.125rem", "left": "1.875rem", "right": "1.875rem" } },
+				":hover": { "color": { "background": "var(--wp--preset--color--accent-dark)", "text": "var(--wp--preset--color--white)" } },
+				":focus": { "color": { "background": "var(--wp--preset--color--accent-dark)", "text": "var(--wp--preset--color--white)" } }
+			}
+		},
+		"blocks": {
+			"core/navigation": {
+				"typography": { "fontSize": "0.8125rem", "letterSpacing": "0.1em", "textTransform": "uppercase" },
+				"elements": { "link": { ":hover": { "color": { "text": "var(--wp--preset--color--sage)" } } } }
+			},
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "300",
+					"fontSize": "1.875rem",
+					"lineHeight": "1",
+					"textTransform": "uppercase"
+				}
+			},
+			"core/separator": { "color": { "text": "rgba(234,233,230,0.12)" } },
+			"core/post-title": {
+				"typography": { "fontFamily": "var(--wp--preset--font-family--body)", "fontWeight": "400", "textTransform": "none", "letterSpacing": "0", "lineHeight": "1.4" }
+			},
+			"woocommerce/product-price": { "typography": { "fontWeight": "600", "fontSize": "var(--wp--preset--font-size--large)" } }
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "Шапка", "area": "header" },
+		{ "name": "footer", "title": "Підвал", "area": "footer" }
+	],
+	"customTemplates": []
+}

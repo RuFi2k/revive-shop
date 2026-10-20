@@ -1,0 +1,131 @@
+/*
+Theme Name: Revive Shop
+Theme URI: https://shop.reviveclinic.com.ua/
+Description: Блочна тема WooCommerce для інтернет-магазину косметики центру естетичної медицини Revive. Стилістика узгоджена з reviveclinic.com.ua.
+Version: 0.1.0
+Requires at least: 6.6
+Tested up to: 6.8
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: revive-shop
+Tags: e-commerce, block-patterns, full-site-editing, dark
+WC requires at least: 9.0
+*/
+
+/* Most styling lives in theme.json. This file holds only what theme.json cannot express. */
+
+/* ---------- Header ---------- */
+.revive-announce a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.revive-header { position: sticky; top: 0; z-index: 50; }
+.admin-bar .revive-header { top: 32px; }
+@media (max-width: 782px) { .admin-bar .revive-header { top: 46px; } }
+
+.revive-wordmark .wp-block-site-title a {
+	text-decoration: none;
+	letter-spacing: 0.28em;
+	padding-left: 0.28em;
+}
+.revive-wordmark .revive-tagline { padding-left: 0.36em; }
+
+/* ---------- Buttons ---------- */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	border: 1px solid rgba(234, 233, 230, 0.4);
+	background: transparent;
+	color: var(--wp--preset--color--light);
+}
+.wp-block-button.is-style-outline > .wp-block-button__link:hover {
+	border-color: var(--wp--preset--color--sage);
+	color: var(--wp--preset--color--sage);
+}
+.has-accent-background-color .wp-block-button.is-style-light > .wp-block-button__link,
+.wp-block-button.is-style-light > .wp-block-button__link {
+	background: #ffffff;
+	color: var(--wp--preset--color--ink);
+}
+.wp-block-button.is-style-light > .wp-block-button__link:hover { background: var(--wp--preset--color--light); }
+
+/* ---------- Cards ---------- */
+.revive-card {
+	border: 1px solid rgba(234, 233, 230, 0.1);
+	transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.revive-card:hover { border-color: rgba(156, 187, 148, 0.6); }
+
+.revive-cat-card { position: relative; }
+.revive-cat-card a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.revive-cat-card a { text-decoration: none; color: inherit; }
+.revive-cat-card:hover { transform: translateY(-2px); }
+
+.revive-outline-card { border: 1px solid rgba(234, 233, 230, 0.12); }
+
+.revive-hero-image img {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 5 / 4;
+	object-fit: cover;
+	border-radius: 28px;
+	display: block;
+}
+
+/* ---------- Product grid (WooCommerce Product Collection) ---------- */
+.revive-products .wc-block-components-product-image img,
+.revive-products .wc-block-components-product-image .wc-block-components-product-image__inner-container,
+.revive-products .wp-block-woocommerce-product-image img {
+	border-radius: 20px;
+	background: var(--wp--preset--color--surface-2);
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+.revive-products .wp-block-post-title a { text-decoration: none; }
+.revive-products .wp-block-post-terms a {
+	text-decoration: none;
+	color: var(--wp--preset--color--muted);
+}
+.revive-products .wp-block-button__link,
+.revive-products .wc-block-components-product-button__button {
+	background: transparent !important;
+	border: 1px solid var(--wp--preset--color--accent) !important;
+	color: var(--wp--preset--color--light) !important;
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 12px 20px;
+	border-radius: 44px;
+}
+.revive-products .wp-block-button__link:hover,
+.revive-products .wc-block-components-product-button__button:hover {
+	background: var(--wp--preset--color--accent) !important;
+	color: #fff !important;
+}
+.revive-products .wc-block-components-product-sale-badge {
+	background: var(--wp--preset--color--light);
+	color: var(--wp--preset--color--ink);
+	border: 0;
+	border-radius: 12px;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/* ---------- Forms (WooCommerce checkout, search) ---------- */
+.wc-block-components-text-input input,
+.wc-block-components-combobox .components-combobox-control input,
+.wp-block-search__input {
+	background: var(--wp--preset--color--surface) !important;
+	color: var(--wp--preset--color--light) !important;
+	border-color: rgba(234, 233, 230, 0.2) !important;
+	border-radius: 12px !important;
+}
+.wp-block-search__inside-wrapper { border-radius: 44px; overflow: hidden; }
+
+/* ---------- Focus visibility ---------- */
+:where(a, button, input, select, textarea, .wp-block-button__link):focus-visible {
+	outline: 2px solid var(--wp--preset--color--sage);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* { transition: none !important; }
+}

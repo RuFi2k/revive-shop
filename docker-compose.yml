@@ -1,0 +1,50 @@
+# Local development: WordPress + WooCommerce + Revive Shop theme.
+# Start:  docker compose up -d   ->  http://localhost:8080
+# Seed:   docker compose run --rm cli bash /bin-revive/setup.sh
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on: [db]
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: "1"
+    volumes:
+      - wp:/var/www/html
+      - ./wp-content/themes/revive-shop:/var/www/html/wp-content/themes/revive-shop
+
+  cli:
+    image: wordpress:cli-php8.3
+    profiles: [tools]
+    depends_on: [db, wordpress]
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      HOME: /tmp
+    volumes:
+      - wp:/var/www/html
+      - ./wp-content/themes/revive-shop:/var/www/html/wp-content/themes/revive-shop
+      - ./bin:/bin-revive:ro
+
+volumes:
+  db:
+  wp:
