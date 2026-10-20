@@ -79,6 +79,28 @@ WC requires at least: 9.0
 	object-fit: cover;
 }
 .revive-products .wp-block-post-title a { text-decoration: none; }
+
+/* Equal-height product cards: price + button always sit on the same line across a row,
+   however long the product name is. Applies to the landing grid and the shop/category pages. */
+.wc-block-product-template { align-items: stretch; }
+.wc-block-product-template .wc-block-product {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.wc-block-product-template .wc-block-product .wp-block-post-title {
+	min-height: calc(2 * 1.4em); /* reserve two lines so one-line names line up too */
+}
+/* Clamp on the link: WooCommerce renders it inline-block, which defeats a clamp on the heading. */
+.wc-block-product-template .wc-block-product .wp-block-post-title a {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	overflow: hidden;
+}
+.wc-block-product-template .wc-block-product .wp-block-woocommerce-product-price { margin-top: auto !important; }
+.wc-block-product-template .wc-block-product .wp-block-woocommerce-product-button { margin-top: 0; }
 .revive-products .wp-block-post-terms a {
 	text-decoration: none;
 	color: var(--wp--preset--color--muted);
