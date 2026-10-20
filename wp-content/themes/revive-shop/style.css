@@ -143,6 +143,152 @@ WC requires at least: 9.0
 	outline-offset: 3px;
 }
 
+/* ---------- Catalog toolbar: result count + sorting dropdown ---------- */
+.woocommerce-result-count,
+.wc-block-product-results-count {
+	color: var(--wp--preset--color--muted);
+	font-size: var(--wp--preset--font-size--small);
+	margin: 0;
+}
+
+.woocommerce-ordering,
+.wc-block-catalog-sorting { margin: 0; }
+
+.woocommerce-ordering select.orderby,
+.wc-block-catalog-sorting select {
+	-webkit-appearance: none;
+	appearance: none;
+	min-height: 44px;
+	min-width: 220px;
+	max-width: 100%;
+	padding: 0 48px 0 20px;
+	border: 1px solid rgba(234, 233, 230, 0.2);
+	border-radius: 44px;
+	background-color: var(--wp--preset--color--surface);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239CBB94' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 18px center;
+	background-size: 16px;
+	color: var(--wp--preset--color--light);
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--small);
+	letter-spacing: 0.02em;
+	cursor: pointer;
+	transition: border-color var(--revive-dur) var(--revive-ease), background-color var(--revive-dur) var(--revive-ease);
+}
+.woocommerce-ordering select.orderby:hover,
+.wc-block-catalog-sorting select:hover {
+	border-color: rgba(156, 187, 148, 0.7);
+	background-color: var(--wp--preset--color--surface-2);
+}
+.woocommerce-ordering select.orderby option,
+.wc-block-catalog-sorting select option {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--light);
+}
+
+/* =========================================================
+   Motion
+   ========================================================= */
+:root {
+	--revive-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+	--revive-dur: 0.25s;
+}
+
+/* Smooth hovers everywhere */
+a,
+.wp-block-button__link,
+.wc-block-components-button,
+.wc-block-components-product-button__button,
+.wp-block-navigation-item__content {
+	transition: color var(--revive-dur) var(--revive-ease), background-color var(--revive-dur) var(--revive-ease),
+		border-color var(--revive-dur) var(--revive-ease), transform var(--revive-dur) var(--revive-ease), opacity var(--revive-dur) var(--revive-ease);
+}
+.wp-block-button__link:active,
+.wc-block-components-product-button__button:active { transform: scale(0.97); }
+
+/* Cards lift slightly */
+.revive-card,
+.revive-outline-card {
+	transition: border-color 0.3s var(--revive-ease), transform 0.3s var(--revive-ease), background-color 0.3s var(--revive-ease);
+}
+.revive-cat-card:hover,
+.revive-outline-card:hover { transform: translateY(-3px); }
+
+/* Product images zoom gently inside their rounded frame */
+.revive-products .wc-block-components-product-image,
+.wc-block-product-template .wc-block-components-product-image {
+	overflow: hidden;
+	border-radius: 20px;
+}
+.revive-products .wc-block-components-product-image img,
+.wc-block-product-template .wc-block-components-product-image img {
+	transition: transform 0.6s var(--revive-ease);
+}
+.revive-products .wc-block-product:hover .wc-block-components-product-image img,
+.wc-block-product-template .wc-block-product:hover .wc-block-components-product-image img { transform: scale(1.04); }
+
+.revive-hero-image img { transition: transform 1.2s var(--revive-ease); }
+.revive-hero-image:hover img { transform: scale(1.02); }
+
+/* Scroll reveal. Only active when JS has marked the page (.revive-motion),
+   so content is never hidden if scripts fail. */
+.revive-motion .revive-reveal {
+	opacity: 0;
+	transform: translateY(18px);
+	transition: opacity 0.7s var(--revive-ease), transform 0.7s var(--revive-ease);
+	transition-delay: var(--revive-delay, 0s);
+}
+.revive-motion .revive-reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* Mobile menu overlay fades in */
+.wp-block-navigation__responsive-container.is-menu-open {
+	animation: revive-fade-in 0.3s var(--revive-ease);
+}
+
+/* Mini-cart drawer slides in */
+.wc-block-components-drawer { transition: transform 0.35s var(--revive-ease) !important; }
+
+@keyframes revive-fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* ---------- Page-to-page transitions (no white flash) ----------
+   Cross-document View Transitions: the browser keeps the old page on screen
+   until the new one is ready, then cross-fades. Header stays in place.
+   Chrome/Edge 126+, Safari 18.2+; other browsers just navigate normally. */
+@view-transition {
+	navigation: auto;
+}
+.revive-header { view-transition-name: revive-header; }
+
+::view-transition-old(root) {
+	animation: revive-page-out 0.18s var(--revive-ease) both;
+}
+::view-transition-new(root) {
+	animation: revive-page-in 0.32s var(--revive-ease) both;
+}
+::view-transition-group(revive-header) { animation-duration: 0s; }
+
+@keyframes revive-page-out {
+	to { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes revive-page-in {
+	from { opacity: 0; transform: translateY(10px); }
+}
+
+/* ---------- Respect "reduce motion" ---------- */
 @media (prefers-reduced-motion: reduce) {
-	* { transition: none !important; }
+	*,
+	*::before,
+	*::after {
+		transition: none !important;
+		animation: none !important;
+	}
+	.revive-motion .revive-reveal { opacity: 1; transform: none; }
+	@view-transition { navigation: none; }
 }

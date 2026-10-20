@@ -87,6 +87,87 @@ add_action(
 );
 
 /**
+ * Scroll-reveal: marks sections and product cards, fades them in as they enter the viewport.
+ * Inline and tiny on purpose: runs before first paint, no extra request.
+ * Skipped entirely for visitors who prefer reduced motion.
+ */
+add_action(
+	'wp_head',
+	static function () {
+		?>
+<script id="revive-motion">
+(function () {
+	if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+	document.documentElement.classList.add('revive-motion');
+	var SELECTOR = 'main > .wp-block-group, main .wp-block-columns, .revive-cat-card, .revive-outline-card, .wc-block-product, footer .wp-block-group.alignwide';
+	function init() {
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (e) {
+				if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+			});
+		}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+		var groups = new Map();
+		document.querySelectorAll(SELECTOR).forEach(function (el) {
+			if (el.closest('.revive-reveal')) return; /* only the outermost element animates */
+			el.classList.add('revive-reveal');
+			/* stagger siblings in grids: 60ms apart, max 6 steps */
+			var parent = el.parentElement, i = groups.get(parent) || 0;
+			groups.set(parent, i + 1);
+			el.style.setProperty('--revive-delay', Math.min(i, 6) * 0.06 + 's');
+			io.observe(el);
+		});
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+	/* Safety net: never leave content hidden. */
+	setTimeout(function () { document.querySelectorAll('.revive-reveal').forEach(function (el) { el.classList.add('is-visible'); }); }, 4000);
+})();
+</script>
+		<?php
+	},
+	2
+);
+
+/**
+ * Near-instant page navigation (WordPress 6.8+ Speculative Loading).
+ * The browser prerenders a page when the visitor hovers or touches a link, so the
+ * click shows it immediately. Combined with the CSS view transitions in style.css,
+ * navigation feels like an app without breaking WooCommerce scripts.
+ */
+add_filter(
+	'wp_speculation_rules_configuration',
+	static function ( $config ) {
+		if ( is_user_logged_in() ) {
+			return $config; // keep admin sessions on WordPress defaults
+		}
+		return array(
+			'mode'      => 'prerender',
+			'eagerness' => 'moderate',
+		);
+	}
+);
+
+/**
+ * Never prerender pages that change state or must be fresh.
+ * A prerendered "?add-to-cart=" link would silently add a product to the cart.
+ */
+add_filter(
+	'wp_speculation_rules_href_exclude_paths',
+	static function ( $paths ) {
+		return array_merge(
+			$paths,
+			array(
+				'/cart/*',
+				'/checkout/*',
+				'/my-account/*',
+				'/*\\?*add-to-cart=*',
+				'/*\\?*remove_item=*',
+				'/*\\?*wc-ajax=*',
+			)
+		);
+	}
+);
+
+/**
  * Free-shipping threshold shown in the announcement bar and patterns.
  * Keep it in sync with WooCommerce › Settings › Shipping.
  */
