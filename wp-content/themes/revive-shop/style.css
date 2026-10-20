@@ -223,12 +223,12 @@ WC requires at least: 9.0
 .revive-header .wp-block-site-title a { transition: opacity var(--revive-dur) var(--revive-ease); }
 .revive-header .wp-block-site-title a:hover { opacity: 0.75; color: inherit; }
 
-/* Mobile menu: hamburger and close buttons get the same circle hover */
+/* Mobile menu: hamburger and close buttons get the same circle hover.
+   No `display` here — WordPress core hides the hamburger at ≥600px and must keep control of that. */
 .revive-header .wp-block-navigation__responsive-container-open,
 .revive-header .wp-block-navigation__responsive-container-close {
 	width: 44px;
 	height: 44px;
-	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
