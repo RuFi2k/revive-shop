@@ -147,7 +147,8 @@
 	},
 	"templateParts": [
 		{ "name": "header", "title": "Шапка", "area": "header" },
-		{ "name": "footer", "title": "Підвал", "area": "footer" }
+		{ "name": "footer", "title": "Підвал", "area": "footer" },
+		{ "name": "mini-cart", "title": "Міні-кошик", "area": "mini-cart" }
 	],
 	"customTemplates": []
 }

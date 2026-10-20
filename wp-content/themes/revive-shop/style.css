@@ -120,6 +120,23 @@ WC requires at least: 9.0
 }
 .wp-block-search__inside-wrapper { border-radius: 44px; overflow: hidden; }
 
+/* Header search: icon-only button, not a full-size pill */
+.revive-header .wp-block-search__button {
+	width: 44px;
+	height: 44px;
+	min-width: 44px;
+	padding: 0;
+	margin: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	color: var(--wp--preset--color--light);
+	border-radius: 50%;
+}
+.revive-header .wp-block-search__button:hover { background: var(--wp--preset--color--surface); color: var(--wp--preset--color--sage); }
+.revive-header .wp-block-search__button svg { width: 22px; height: 22px; fill: currentColor; }
+
 /* ---------- Focus visibility ---------- */
 :where(a, button, input, select, textarea, .wp-block-button__link):focus-visible {
 	outline: 2px solid var(--wp--preset--color--sage);
