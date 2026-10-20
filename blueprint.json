@@ -20,7 +20,7 @@
 			"step": "installTheme",
 			"themeData": {
 				"resource": "git:directory",
-				"url": "https://github.com/YOUR-GITHUB-USER/revive-shop",
+				"url": "https://github.com/RuFi2k/revive-shop",
 				"ref": "main",
 				"path": "wp-content/themes/revive-shop"
 			},
