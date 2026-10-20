@@ -202,6 +202,20 @@ add_filter(
 );
 
 /**
+ * Stop WooCommerce from auto-inserting the account icon into the header.
+ * WooCommerce uses the Block Hooks API to add `woocommerce/customer-account` next to the
+ * mini-cart when a theme's header doesn't have one. Accounts are optional for now
+ * (guest checkout), so the icon stays out until "Мій кабінет" has real content.
+ */
+add_filter(
+	'hooked_block_types',
+	static function ( $hooked_blocks ) {
+		return array_values( array_diff( $hooked_blocks, array( 'woocommerce/customer-account' ) ) );
+	},
+	99
+);
+
+/**
  * Free-shipping threshold shown in the announcement bar and patterns.
  * Keep it in sync with WooCommerce › Settings › Shipping.
  */

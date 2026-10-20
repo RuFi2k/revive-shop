@@ -131,19 +131,18 @@ WC requires at least: 9.0
 	text-transform: uppercase;
 }
 
-/* ---------- Forms (WooCommerce checkout, search) ---------- */
+/* ---------- Forms (WooCommerce checkout) ---------- */
 .wc-block-components-text-input input,
-.wc-block-components-combobox .components-combobox-control input,
-.wp-block-search__input {
+.wc-block-components-combobox .components-combobox-control input {
 	background: var(--wp--preset--color--surface) !important;
 	color: var(--wp--preset--color--light) !important;
 	border-color: rgba(234, 233, 230, 0.2) !important;
 	border-radius: 12px !important;
 }
-.wp-block-search__inside-wrapper { border-radius: 44px; overflow: hidden; }
 
-/* Header search: icon-only button, not a full-size pill */
-.revive-header .wp-block-search__button {
+/* ---------- Header: icon buttons (search, cart) ---------- */
+.revive-header .wp-block-search__button,
+.revive-header .wc-block-mini-cart__button {
 	width: 44px;
 	height: 44px;
 	min-width: 44px;
@@ -152,12 +151,94 @@ WC requires at least: 9.0
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	border: 0;
+	border-radius: 50%;
 	background: transparent;
 	color: var(--wp--preset--color--light);
-	border-radius: 50%;
+	cursor: pointer;
+	transition: background-color var(--revive-dur) var(--revive-ease), color var(--revive-dur) var(--revive-ease);
 }
-.revive-header .wp-block-search__button:hover { background: var(--wp--preset--color--surface); color: var(--wp--preset--color--sage); }
-.revive-header .wp-block-search__button svg { width: 22px; height: 22px; fill: currentColor; }
+.revive-header .wp-block-search__button svg,
+.revive-header .wc-block-mini-cart__button svg { width: 22px; height: 22px; fill: currentColor; }
+.revive-header .wc-block-mini-cart__button:hover,
+.revive-header .wp-block-search__searchfield-hidden .wp-block-search__button:hover {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--sage);
+}
+
+/* ---------- Header: expanding search field ----------
+   The rounded pill (border + background) lives on the wrapper; the input and the button
+   inside it are transparent and borderless, so nothing overlaps or gets clipped by the radius. */
+.revive-header .wp-block-search__inside-wrapper {
+	border: 1px solid transparent !important;
+	border-radius: 44px;
+	padding: 0 !important;
+	background: transparent;
+	transition: border-color var(--revive-dur) var(--revive-ease), background-color var(--revive-dur) var(--revive-ease), width 0.35s var(--revive-ease);
+}
+.revive-header .wp-block-search:not(.wp-block-search__searchfield-hidden) .wp-block-search__inside-wrapper {
+	width: min(260px, 62vw) !important;
+	border-color: rgba(234, 233, 230, 0.25) !important;
+	background: var(--wp--preset--color--surface);
+}
+.revive-header .wp-block-search:not(.wp-block-search__searchfield-hidden) .wp-block-search__inside-wrapper:hover { border-color: rgba(156, 187, 148, 0.6) !important; }
+.revive-header .wp-block-search__inside-wrapper:focus-within { border-color: var(--wp--preset--color--sage) !important; }
+
+.revive-header .wp-block-search__input {
+	height: 42px;
+	min-width: 0;
+	margin: 0;
+	padding: 0 4px 0 18px;
+	border: 0 !important;
+	border-radius: 0;
+	outline: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
+	color: var(--wp--preset--color--light);
+	font-size: var(--wp--preset--font-size--small);
+}
+.revive-header .wp-block-search:not(.wp-block-search__searchfield-hidden) .wp-block-search__input {
+	flex: 1 1 auto;
+	width: auto !important;
+}
+/* Focus ring is shown on the whole pill (:focus-within above), not on the clipped input */
+.revive-header .wp-block-search__input:focus-visible { outline: none; }
+
+/* When the field is open, the button is just an icon inside the pill: colour change only, no circle */
+.revive-header .wp-block-search:not(.wp-block-search__searchfield-hidden) .wp-block-search__button { height: 42px; background: transparent; }
+.revive-header .wp-block-search:not(.wp-block-search__searchfield-hidden) .wp-block-search__button:hover { color: var(--wp--preset--color--sage); background: transparent; }
+
+/* ---------- Header: menu links + wordmark ---------- */
+.revive-header .wp-block-navigation-item__content {
+	padding-bottom: 4px;
+	background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0% 1px;
+	transition: color var(--revive-dur) var(--revive-ease), background-size 0.35s var(--revive-ease);
+}
+.revive-header .wp-block-navigation-item__content:hover,
+.revive-header .wp-block-navigation-item__content:focus-visible,
+.revive-header .current-menu-item > .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--sage);
+	background-size: 100% 1px;
+}
+.revive-header .wp-block-site-title a { transition: opacity var(--revive-dur) var(--revive-ease); }
+.revive-header .wp-block-site-title a:hover { opacity: 0.75; color: inherit; }
+
+/* Mobile menu: hamburger and close buttons get the same circle hover */
+.revive-header .wp-block-navigation__responsive-container-open,
+.revive-header .wp-block-navigation__responsive-container-close {
+	width: 44px;
+	height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	transition: background-color var(--revive-dur) var(--revive-ease), color var(--revive-dur) var(--revive-ease);
+}
+.revive-header .wp-block-navigation__responsive-container-open:hover,
+.revive-header .wp-block-navigation__responsive-container-close:hover {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--sage);
+}
 
 /* ---------- Focus visibility ---------- */
 :where(a, button, input, select, textarea, .wp-block-button__link):focus-visible {
