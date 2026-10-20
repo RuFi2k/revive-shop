@@ -228,8 +228,46 @@ a,
 .revive-products .wc-block-product:hover .wc-block-components-product-image img,
 .wc-block-product-template .wc-block-product:hover .wc-block-components-product-image img { transform: scale(1.04); }
 
-.revive-hero-image img { transition: transform 1.2s var(--revive-ease); }
-.revive-hero-image:hover img { transform: scale(1.02); }
+/* ---------- Clinic-style intro + parallax (mirrors reviveclinic.com.ua GSAP timings, minus the preloader) ---------- */
+:root { --revive-quint: cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Parallax frame: the image is oversized (scale 1.1) and drifts with scroll via the `translate` property */
+.revive-parallax { overflow: hidden; border-radius: 28px; }
+.revive-parallax img { scale: 1.1; will-change: translate; }
+
+/* Hero photo zooms out from 1.4 on load */
+.revive-motion .revive-hero .revive-parallax img { animation: revive-zoom-out 2.6s var(--revive-quint) both; }
+
+/* Hero copy rises 50px one element after another */
+.revive-motion .revive-hero .wp-block-column:first-child > * { animation: revive-rise 1.6s var(--revive-quint) both; }
+.revive-motion .revive-hero .wp-block-column:first-child > :nth-child(1) { animation-delay: 0.15s; }
+.revive-motion .revive-hero .wp-block-column:first-child > :nth-child(2) { animation-delay: 0.3s; }
+.revive-motion .revive-hero .wp-block-column:first-child > :nth-child(3) { animation-delay: 0.5s; }
+.revive-motion .revive-hero .wp-block-column:first-child > :nth-child(4) { animation-delay: 0.65s; }
+
+/* Header slides in only when arriving from outside the shop (not on every internal click) */
+.revive-intro .revive-header > .wp-block-group:last-child > .alignwide { animation: revive-rise 1.4s var(--revive-quint) 0.05s both; }
+
+/* Section headings rise 20px on scroll, like the clinic's .title */
+.revive-motion h2.revive-title {
+	opacity: 0;
+	translate: 0 20px;
+	transition: opacity 1.8s var(--revive-quint), translate 1.8s var(--revive-quint);
+}
+.revive-motion h2.revive-title.is-visible { opacity: 1; translate: none; }
+
+/* Header hides on scroll down, returns on scroll up */
+.revive-header { transition: transform 0.45s var(--revive-quint); }
+.revive-header.is-hidden { transform: translateY(-100%); }
+
+@keyframes revive-zoom-out {
+	from { scale: 1.4; }
+	to { scale: 1.1; }
+}
+@keyframes revive-rise {
+	from { opacity: 0; translate: 0 50px; }
+	to { opacity: 1; translate: none; }
+}
 
 /* Scroll reveal. Only active when JS has marked the page (.revive-motion),
    so content is never hidden if scripts fail. */
@@ -289,6 +327,9 @@ a,
 		transition: none !important;
 		animation: none !important;
 	}
-	.revive-motion .revive-reveal { opacity: 1; transform: none; }
+	.revive-motion .revive-reveal,
+	.revive-motion h2.revive-title { opacity: 1; transform: none; translate: none; }
+	.revive-parallax img { scale: 1; translate: none !important; }
+	.revive-header.is-hidden { transform: none; }
 	@view-transition { navigation: none; }
 }

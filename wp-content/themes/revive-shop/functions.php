@@ -98,7 +98,10 @@ add_action(
 <script id="revive-motion">
 (function () {
 	if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-	document.documentElement.classList.add('revive-motion');
+	var root = document.documentElement;
+	root.classList.add('revive-motion');
+	/* Header intro only when the visitor arrives from outside the shop. */
+	try { if (!document.referrer || new URL(document.referrer).host !== location.host) root.classList.add('revive-intro'); } catch (e) {}
 	var SELECTOR = 'main > .wp-block-group, main .wp-block-columns, .revive-cat-card, .revive-outline-card, .wc-block-product, footer .wp-block-group.alignwide';
 	function init() {
 		var io = new IntersectionObserver(function (entries) {
@@ -106,8 +109,17 @@ add_action(
 				if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
 			});
 		}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+		/* Section headings: slow 20px rise, observed on their own. */
+		document.querySelectorAll('main h2.wp-block-heading').forEach(function (h) {
+			if (h.closest('.revive-hero')) return;
+			h.classList.add('revive-title');
+			io.observe(h);
+		});
+
 		var groups = new Map();
 		document.querySelectorAll(SELECTOR).forEach(function (el) {
+			if (el.closest('.revive-hero')) return; /* hero has its own load animation */
 			if (el.closest('.revive-reveal')) return; /* only the outermost element animates */
 			el.classList.add('revive-reveal');
 			/* stagger siblings in grids: 60ms apart, max 6 steps */
@@ -116,10 +128,32 @@ add_action(
 			el.style.setProperty('--revive-delay', Math.min(i, 6) * 0.06 + 's');
 			io.observe(el);
 		});
+
+		/* Scroll parallax (like simpleParallax, scale 1.1): image drifts up to ±5% of its height. */
+		var layers = [].slice.call(document.querySelectorAll('.revive-parallax img'));
+		var header = document.querySelector('.revive-header');
+		var lastY = window.scrollY, ticking = false;
+		function frame() {
+			ticking = false;
+			var vh = window.innerHeight, y = window.scrollY;
+			layers.forEach(function (img) {
+				var r = img.parentElement.getBoundingClientRect();
+				if (r.bottom < 0 || r.top > vh) return;
+				var progress = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2); /* -1 … 1 */
+				img.style.translate = '0 ' + (progress * r.height * 0.05).toFixed(1) + 'px';
+			});
+			/* Header: hide when scrolling down past 120px, show on any scroll up. */
+			if (header && !document.body.classList.contains('has-modal-open')) {
+				header.classList.toggle('is-hidden', y > 120 && y > lastY);
+			}
+			lastY = y;
+		}
+		window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
+		frame();
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 	/* Safety net: never leave content hidden. */
-	setTimeout(function () { document.querySelectorAll('.revive-reveal').forEach(function (el) { el.classList.add('is-visible'); }); }, 4000);
+	setTimeout(function () { document.querySelectorAll('.revive-reveal, .revive-title').forEach(function (el) { el.classList.add('is-visible'); }); }, 4000);
 })();
 </script>
 		<?php
