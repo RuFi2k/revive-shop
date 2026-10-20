@@ -70,8 +70,8 @@ WC requires at least: 9.0
 }
 
 /* ---------- Product grid (WooCommerce Product Collection) ---------- */
+/* Note: never style __inner-container — it is a transparent overlay (for badges) on top of the image. */
 .revive-products .wc-block-components-product-image img,
-.revive-products .wc-block-components-product-image .wc-block-components-product-image__inner-container,
 .revive-products .wp-block-woocommerce-product-image img {
 	border-radius: 20px;
 	background: var(--wp--preset--color--surface-2);

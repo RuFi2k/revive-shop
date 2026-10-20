@@ -202,24 +202,6 @@ add_filter(
 );
 
 /**
- * Product images load immediately instead of lazily.
- * Native lazy loading never fired for the product grid (seen in Playground), leaving
- * empty cards. The images are small (~20 KB at grid size), so eager loading is cheap.
- */
-add_filter(
-	'wp_get_attachment_image_attributes',
-	static function ( $attr, $attachment ) {
-		if ( ! is_admin() && $attachment instanceof WP_Post && 'product' === get_post_type( $attachment->post_parent ) ) {
-			$attr['loading']  = 'eager';
-			$attr['decoding'] = 'async';
-		}
-		return $attr;
-	},
-	10,
-	2
-);
-
-/**
  * Free-shipping threshold shown in the announcement bar and patterns.
  * Keep it in sync with WooCommerce › Settings › Shipping.
  */
